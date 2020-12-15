@@ -6,6 +6,7 @@ import LoaderButton from "../components/LoaderButton";
 import { useAppContext } from "../lib/contexts";
 import { useFormFields } from "../lib/hooks";
 import { onError } from "../lib/errors";
+import { Link } from 'react-router-dom';
 
 
 export default function Login() {
@@ -65,6 +66,7 @@ export default function Login() {
         >
           Login
         </LoaderButton>
+        <Link to="/signup">Don't have an account?</Link>
       </Form>
     </div>
   );

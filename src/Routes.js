@@ -3,6 +3,9 @@ import { Route, Switch } from "react-router-dom";
 import Home from "./page/Home";
 import NotFound from "./page/NotFound";
 import Login from "./page/Login";
+import Signup from "./page/Signup";
+import Dashboard from "./page/Dashboard";
+import Budget from "./page/Budget";
 export default function Routes() {
   return (
     <Switch>
@@ -11,6 +14,15 @@ export default function Routes() {
       </Route>
       <Route exact path="/login">
         <Login />
+      </Route>
+      <Route exact path="/signup">
+        <Signup />
+      </Route>
+      <Route exact path="/dashboard">
+        <Dashboard />
+      </Route>
+      <Route exact path="/budget">
+        <Budget />
       </Route>
       {/* Finally, catch all unmatched routes */}
       <Route>
