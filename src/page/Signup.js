@@ -61,7 +61,7 @@ export default function Signup() {
       await Auth.signIn(fields.email, fields.password);
   
       userHasAuthenticated(true);
-      history.push("/routing");
+      history.push("/budget");
     } catch (e) {
       onError(e);
       setIsLoading(false);

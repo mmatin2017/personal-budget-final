@@ -66,7 +66,7 @@ export default function Login() {
         >
           Login
         </LoaderButton>
-        <Link to="/signup">Don't have an account?</Link>
+        <Link to="/signup">Don't have an account? Sign up!</Link>
       </Form>
     </div>
   );
