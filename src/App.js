@@ -9,7 +9,6 @@ import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 import { onError } from "./lib/errors";
 
-
 function App() {
   const history = useHistory();
   const [isAuthenticating, setIsAuthenticating] = useState(true);
@@ -18,21 +17,20 @@ function App() {
   useEffect(() => {
     onLoad();
   }, []);
-  
+
   async function onLoad() {
     try {
       await Auth.currentSession();
       userHasAuthenticated(true);
-    }
-    catch(e) {
-      if (e !== 'No current user') {
+    } catch (e) {
+      if (e !== "No current user") {
         onError(e);
       }
     }
-  
+
     setIsAuthenticating(false);
   }
-  
+
   async function handleLogout() {
     await Auth.signOut();
     userHasAuthenticated(false);
@@ -50,12 +48,18 @@ function App() {
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Nav activeKey={window.location.pathname}>
-              <LinkContainer to="/dashboard">
-                <Nav.Link>Dashboard</Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/budget">
-                <Nav.Link>Budget Builder</Nav.Link>
-              </LinkContainer>
+              {!isAuthenticated ? (
+                <Nav.Link></Nav.Link>
+              ) : (
+                <>
+                  <LinkContainer to="/dashboard">
+                    <Nav.Link>Dashboard</Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to="/budget">
+                    <Nav.Link>Budget</Nav.Link>
+                  </LinkContainer>
+                </>
+              )}
               {isAuthenticated ? (
                 <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
               ) : (

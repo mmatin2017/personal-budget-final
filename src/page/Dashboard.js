@@ -43,7 +43,7 @@ class Dashboard extends Component {
             
     
             <div className="text-box">
-                    <h1>Chart</h1>
+                    <h1>Your Spending</h1>
                    <p>
                    <Pie data={this.state.data} />
                         
