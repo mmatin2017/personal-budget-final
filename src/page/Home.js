@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+
 
 
 export default function Home() {
@@ -7,8 +7,8 @@ export default function Home() {
     <div className="Home">
       <div className="lander">
         <h1>Personal Budget App</h1>
-        <p className="text-muted">An app for all your budgeting needs</p>
-        <Link to="/login">Login or sign up</Link>
+        <p className="text-muted">An app for all your budgeting needs. Sign up today.</p>
+      
       </div>
     </div>
   );

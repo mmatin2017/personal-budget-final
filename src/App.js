@@ -56,7 +56,7 @@ function App() {
                     <Nav.Link>Dashboard</Nav.Link>
                   </LinkContainer>
                   <LinkContainer to="/budget">
-                    <Nav.Link>Budget</Nav.Link>
+                    <Nav.Link>Builder</Nav.Link>
                   </LinkContainer>
                 </>
               )}
