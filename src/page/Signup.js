@@ -133,7 +133,7 @@ export default function Signup() {
         >
           Signup
         </LoaderButton>
-        <Link to="/login">Already have an account?</Link>
+       Already have an account? Log in <Link to="/login">here.</Link>
       </Form>
     );
   }
