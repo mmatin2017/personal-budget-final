@@ -9,9 +9,9 @@ export default class Budget extends Component {
   render(){
   return (
     <div className="Budget">
-    <Add/>
-    <Update/>
-    <Delete/>
+      <Add/>
+      <Update/>
+      <Delete/>
     </div>
   );
   }

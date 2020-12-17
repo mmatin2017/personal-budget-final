@@ -29,7 +29,6 @@ export default function Delete() {
         <Form.Group controlId="title" size="lg">
           <Form.Label>Enter expense name to be deleted</Form.Label>
           <Form.Control
-            autoFocus
             type="input"
             value={fields.title}
             onChange={handleFieldChange}
