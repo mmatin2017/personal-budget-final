@@ -2,38 +2,41 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useFormFields } from "../lib/hooks";
-import axios from 'axios';
+import axios from "axios";
+import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 
 export default function Add() {
   const history = useHistory();
   const [fields, handleFieldChange] = useFormFields({
-    title: "",
-    budget: "",
+        title: "",
+        budget: "",
   });
-  
-
 
   async function handleSubmit(event) {
-      let color = '#'+(Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0');
-      event.preventDefault();
-
-      const newUser = {
-        title: fields.title,
-        budget: fields.budget,
-        color: color
-      };
-
-      axios.post('http://localhost:5000/addBudget', newUser);
-      history.push("/dashboard");
-      history.go(0)
-    
+    let color = "#" + ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, "0");
+    let user = await Auth.currentAuthenticatedUser();
+    event.preventDefault();
+    const newData = {
+      username: user.username,
+      data: [
+        {
+          title: fields.title,
+          color: color,
+          budget: fields.budget,
+        },
+        
+      ]
+    };
+    console.log(newData)
+    axios.put("http://localhost:5000/updateBudget", newData);
+    history.push("/dashboard");
   }
-    return (
-      <div className="Login">
+  return (
+    <div className="Login">
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="title" size="lg">
-          <Form.Label>Enter a new expense</Form.Label>
+          <Form.Label>Input an expense</Form.Label>
           <Form.Control
             autoFocus
             type="input"
@@ -49,17 +52,10 @@ export default function Add() {
             onChange={handleFieldChange}
           />
         </Form.Group>
-        <Button
-          block
-          size="lg"
-          type="submit"
-          variant="success"
-          >
+        <Button block size="lg" type="submit" variant="success">
           Submit
         </Button>
       </Form>
-      </div>
-    );
-  
-
+    </div>
+  );
 }

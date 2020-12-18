@@ -61,7 +61,7 @@ export default function Signup() {
       await Auth.signIn(fields.email, fields.password);
   
       userHasAuthenticated(true);
-      history.push("/");
+      history.push("/dashboard");
     } catch (e) {
       onError(e);
       setIsLoading(false);
