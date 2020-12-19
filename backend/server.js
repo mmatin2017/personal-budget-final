@@ -7,7 +7,7 @@ const app = express();
 const port = 5000;
 const budgetModel = require("./models/budget_schema");
 
-let url = "mongodb+srv://mmatin:Osman4599*@cluster0.afyz8.mongodb.net/personalBudget?retryWrites=true&w=majority";
+let url = "mongodb+srv://mmatin:Osman4599@cluster0.afyz8.mongodb.net/personalBudget?retryWrites=true&w=majority";
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
