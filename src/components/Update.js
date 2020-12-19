@@ -10,7 +10,7 @@ export default function Update() {
   const history = useHistory();
   const [fields, handleFieldChange] = useFormFields({
         title: "",
-        budget: 0
+        budget: ""
   });
 
   async function handleSubmit(event) {
@@ -36,6 +36,7 @@ export default function Update() {
         <Form.Group controlId="title" size="lg">
           <Form.Label>Enter the expense title</Form.Label>
           <Form.Control
+            autoFocus
             type="input"
             value={fields.title}
             onChange={handleFieldChange}

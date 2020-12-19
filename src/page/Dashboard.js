@@ -5,10 +5,10 @@ import { Auth } from "aws-amplify";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 import Update from "../components/Update";
+import Delete from "../components/Delete";
 import Add from "../components/Add";
 import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
-import { onError } from "../lib/errors";
 
 class Dashboard extends Component {
   state = {
@@ -19,7 +19,7 @@ class Dashboard extends Component {
       username: "",
       datasets: [
         { 
-          label: "Budget",
+ 
           data: [],
           backgroundColor: [],
         },
@@ -36,26 +36,24 @@ class Dashboard extends Component {
     const newUser = {
       username: user.username,
     };
-    console.log(newUser.username);
+  
     axios.post("http://localhost:5000/addBudget", newUser);
     const res = await axios.get("http://localhost:5000/budget");
     let tempData = this.state.data;
     let index;
     for (let i = 0; i < res.data.length; i++) {
       if (res.data[i].username === newUser.username) {
-        console.log(true);
+
         index = i;
         break;
       }
     }
-    console.log(index);
 
     for (let j = 0; j < res.data[index].data.length; j++) {
       tempData.datasets[0].data[j] = res.data[index].data[j].budget;
-      tempData.labels[j] = res.data[index].data[j].title;
+      tempData.labels[0] = res.data[index].data[j].title;
       tempData.datasets[0].backgroundColor[j] = res.data[index].data[j].color;
     }
-    console.log(tempData);
 
     this.setState({
       data: Object.assign({}, this.state.data, {
@@ -63,18 +61,18 @@ class Dashboard extends Component {
       }),
     });
     } catch(event){
-      onError(event)
+      console.log(event)
     }
   }
 
   handleSelectBudget = (e) => {
-    console.log(e);
+    
     this.setState({ selectBudget: e });
     console.log(this.state.selectBudget);
   };
 
   handleSelectChartView= (e) => {
-    console.log(e);
+    
     this.setState({ select: e });
     console.log(this.state.select);
   };
@@ -105,8 +103,9 @@ class Dashboard extends Component {
               <Dropdown.Item eventKey="Update" role="selection">Edit an expense</Dropdown.Item>
               <Dropdown.Item eventKey="Delete" role="selection">Delete an expense</Dropdown.Item>
             </DropdownButton>
-            {this.state.selectBudget !== "Add" ? this.handleSelectBudget : <Add/>}
-            {this.state.selectBudget !== "Update" ? this.handleSelectBudget : <Update />}
+              <Add/>
+              <Update />
+              <Delete />
             </Card.Body>
           </Card>
           <Card style={{ width: "14rem" }}
