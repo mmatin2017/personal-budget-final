@@ -39,7 +39,7 @@ function App() {
   return (
     !isAuthenticating && (
       <div className="App container py-3">
-        <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
+        <Navbar collapseOnSelect bg="light" expand="md" className="mb-3" role="navigation">
           <LinkContainer to="/">
             <Navbar.Brand className="font-weight-bold text-muted">
               Personal Budget App
@@ -54,9 +54,6 @@ function App() {
                 <>
                   <LinkContainer to="/dashboard">
                     <Nav.Link>Dashboard</Nav.Link>
-                  </LinkContainer>
-                  <LinkContainer to="/budget">
-                    <Nav.Link>Builder</Nav.Link>
                   </LinkContainer>
                 </>
               )}

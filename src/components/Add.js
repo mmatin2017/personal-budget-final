@@ -12,12 +12,14 @@ export default function Add() {
         title: "",
         budget: "",
   });
+  let color;
+  var newData;
 
   async function handleSubmit(event) {
-    let color = "#" + ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, "0");
+    color = "#" + ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, "0");
     let user = await Auth.currentAuthenticatedUser();
     event.preventDefault();
-    const newData = {
+    newData = {
       username: user.username,
       data: [
         {
@@ -30,13 +32,13 @@ export default function Add() {
     };
     console.log(newData)
     axios.put("http://localhost:5000/updateBudget", newData);
-    history.push("/dashboard");
+    history.go(0);
   }
   return (
     <div className="Login">
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} role="view">
         <Form.Group controlId="title" size="lg">
-          <Form.Label>Input an expense</Form.Label>
+          <Form.Label>Enter the budget title</Form.Label>
           <Form.Control
             autoFocus
             type="input"
@@ -44,15 +46,15 @@ export default function Add() {
             onChange={handleFieldChange}
           />
         </Form.Group>
-        <Form.Group controlId="budget" size="lg">
-          <Form.Label>Enter expense amount</Form.Label>
+        <Form.Group controlId="budget" size="small">
+          <Form.Label>Enter the budget amount</Form.Label>
           <Form.Control
             type="number"
             value={fields.budget}
             onChange={handleFieldChange}
           />
         </Form.Group>
-        <Button block size="lg" type="submit" variant="success">
+        <Button block size="lg" type="submit" variant="success" role="submit">
           Submit
         </Button>
       </Form>

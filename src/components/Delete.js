@@ -27,7 +27,7 @@ export default function Delete() {
       <div className="Login">
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="title" size="lg">
-          <Form.Label>Enter expense name to be deleted</Form.Label>
+          <Form.Label>Enter budget title to delete</Form.Label>
           <Form.Control
             type="input"
             value={fields.title}
@@ -39,6 +39,7 @@ export default function Delete() {
           size="lg"
           type="submit"
           variant="success"
+          role = "submit"
           >
           Submit
         </Button>

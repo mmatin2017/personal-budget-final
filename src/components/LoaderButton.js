@@ -11,6 +11,7 @@ export default function LoaderButton({
 }) {
   return (
     <Button
+      role="submit"
       disabled={disabled || isLoading}
       className={`LoaderButton ${className}`}
       {...props}

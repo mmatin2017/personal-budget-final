@@ -10,23 +10,21 @@ export default function Update() {
   const history = useHistory();
   const [fields, handleFieldChange] = useFormFields({
         title: "",
-        budget: "",
+        budget: 0
   });
 
   async function handleSubmit(event) {
-    let color = "#" + ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, "0");
     let user = await Auth.currentAuthenticatedUser();
     event.preventDefault();
     const newData = {
       username: user.username,
-      data: [
-        {
+
           title: fields.title,
           budget: fields.budget,
           
-        },
+       
         
-      ]
+
     };
     console.log(newData)
     axios.put("http://localhost:5000/updateBudget", newData);
@@ -34,9 +32,9 @@ export default function Update() {
   }
   return (
     <div className="Login">
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} role="view">
         <Form.Group controlId="title" size="lg">
-          <Form.Label>Input an expense to update</Form.Label>
+          <Form.Label>Enter the expense title</Form.Label>
           <Form.Control
             type="input"
             value={fields.title}
@@ -44,7 +42,7 @@ export default function Update() {
           />
         </Form.Group>
         <Form.Group controlId="budget" size="lg">
-          <Form.Label>Enter updated expense amount</Form.Label>
+          <Form.Label>Enter the expense amount</Form.Label>
           <Form.Control
             type="number"
             value={fields.budget}
