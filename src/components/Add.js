@@ -27,7 +27,7 @@ export default function Add() {
           color: color,
           budget: fields.budget,
         },
-        
+
       ]
     };
     console.log(newData)
