@@ -27,7 +27,7 @@ export default function Update() {
 
     };
     console.log(newData)
-    axios.put("http://localhost:5000/updateBudget", newData);
+    axios.put("http://64.225.57.235:5000/updateBudget", newData);
     history.push("/dashboard");
   }
   return (

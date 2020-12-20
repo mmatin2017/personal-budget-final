@@ -37,8 +37,8 @@ class Dashboard extends Component {
       username: user.username,
     };
   
-    axios.post("http://localhost:5000/addBudget", newUser);
-    const res = await axios.get("http://localhost:5000/budget");
+    axios.post("http://64.225.57.235:5000/addBudget", newUser);
+    const res = await axios.get("http://64.225.57.235:5000/budget");
     let tempData = this.state.data;
     let index;
     for (let i = 0; i < res.data.length; i++) {

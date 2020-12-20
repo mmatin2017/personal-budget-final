@@ -16,7 +16,7 @@ export default function Delete() {
   async function handleSubmit(event) {
       event.preventDefault();
       
-      axios.delete('http://localhost:5000/deleteBudget', {
+      axios.delete('http://64.225.57.235:5000/deleteBudget', {
           data: { title: fields.title }
       });
       history.push("/dashboard");
