@@ -103,9 +103,10 @@ class Dashboard extends Component {
               <Dropdown.Item eventKey="Update" role="selection">Edit an expense</Dropdown.Item>
               <Dropdown.Item eventKey="Delete" role="selection">Delete an expense</Dropdown.Item>
             </DropdownButton>
-              <Add/>
-              <Update />
-              <Delete />
+            {this.state.select !== "Add" ? (this.handleSelect) : (<Add/>)}
+            {this.state.select !== "Update" ? (this.handleSelect) : (<Update/>)}
+            {this.state.select !== "Delete" ? (this.handleSelect) : (<Delete/>)}
+              
             </Card.Body>
           </Card>
           <Card style={{ width: "14rem" }}
