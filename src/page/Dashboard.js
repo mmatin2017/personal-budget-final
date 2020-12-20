@@ -18,8 +18,8 @@ class Dashboard extends Component {
     data: {
       username: "",
       datasets: [
-        { 
- 
+        {
+
           data: [],
           backgroundColor: [],
         },
@@ -28,7 +28,7 @@ class Dashboard extends Component {
     },
   };
 
-  
+
 
   async componentDidMount() {
     try {
@@ -36,7 +36,7 @@ class Dashboard extends Component {
     const newUser = {
       username: user.username,
     };
-  
+
     axios.post("http://64.225.57.235:5000/addBudget", newUser);
     const res = await axios.get("http://64.225.57.235:5000/budget");
     let tempData = this.state.data;
@@ -66,13 +66,13 @@ class Dashboard extends Component {
   }
 
   handleSelectBudget = (e) => {
-    
+
     this.setState({ selectBudget: e });
     console.log(this.state.selectBudget);
   };
 
   handleSelectChartView= (e) => {
-    
+
     this.setState({ select: e });
     console.log(this.state.select);
   };
@@ -80,7 +80,7 @@ class Dashboard extends Component {
 
   render() {
     return (
-     
+
         <main className="center" id="main">
           <div className="page-area">
             <div className="text-box">
@@ -96,24 +96,22 @@ class Dashboard extends Component {
               title="Budget Build Select"
               onSelect={this.handleSelectBudget}
               menuAlign="left"
-              size = "small" 
+              size = "small"
               role="selectionMenu"
             >
               <Dropdown.Item eventKey="Add" role="selection" >Add an expense</Dropdown.Item>
               <Dropdown.Item eventKey="Update" role="selection">Edit an expense</Dropdown.Item>
               <Dropdown.Item eventKey="Delete" role="selection">Delete an expense</Dropdown.Item>
             </DropdownButton>
-            {this.state.select !== "Add" ? (this.handleSelect) : (<Add/>)}
-            {this.state.select !== "Update" ? (this.handleSelect) : (<Update/>)}
-            {this.state.select !== "Delete" ? (this.handleSelect) : (<Delete/>)}
-              
+            <Add/>
+
             </Card.Body>
           </Card>
           <Card style={{ width: "14rem" }}
               align = "left">
           <Card.Img variant="middle"/>
           <Card.Body>
-        
+
               <DropdownButton
                 id="dropdown-basic-button"
                 title="Change expense view"
@@ -129,14 +127,14 @@ class Dashboard extends Component {
                 <Dropdown.Item eventKey="Doughnut" role="selection">Doughnut</Dropdown.Item>
               </DropdownButton>
 
-              {this.state.select !== "Pie" ? (this.handleSelect) : 
+              {this.state.select !== "Pie" ? (this.handleSelect) :
               (<Pie data={this.state.data}
                 role="pieData" />)}
-              {this.state.select !== "Bar" ? (this.handleSelect) : 
+              {this.state.select !== "Bar" ? (this.handleSelect) :
               (<Bar data={this.state.data}
                 role="pieData" />)}
-              {this.state.select !== "Doughnut" ? (this.handleSelect) : 
-              (<Doughnut data = {this.state.data} 
+              {this.state.select !== "Doughnut" ? (this.handleSelect) :
+              (<Doughnut data = {this.state.data}
                 role="doughnutData"/>
               )}
               </Card.Body>
@@ -145,7 +143,7 @@ class Dashboard extends Component {
             </div>
           </div>
         </main>
-      
+
     );
   }
 }
