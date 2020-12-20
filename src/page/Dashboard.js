@@ -91,19 +91,10 @@ class Dashboard extends Component {
               size = "small">
           <Card.Img variant="top"/>
           <Card.Body>
-            <DropdownButton
-              id="dropdown-basic-button"
-              title="Budget Build Select"
-              onSelect={this.handleSelectBudget}
-              menuAlign="left"
-              size = "small"
-              role="selectionMenu"
-            >
-              <Dropdown.Item eventKey="Add" role="selection" >Add an expense</Dropdown.Item>
-              <Dropdown.Item eventKey="Update" role="selection">Edit an expense</Dropdown.Item>
-              <Dropdown.Item eventKey="Delete" role="selection">Delete an expense</Dropdown.Item>
-            </DropdownButton>
+
             <Add/>
+            <Update/>
+            <Delete/>
 
             </Card.Body>
           </Card>
@@ -114,7 +105,7 @@ class Dashboard extends Component {
 
               <DropdownButton
                 id="dropdown-basic-button"
-                title="Change expense view"
+                title="Change budget view"
                 onSelect={this.handleSelectChartView}
                 align="right"
                 size = "small"

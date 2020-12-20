@@ -10,24 +10,24 @@ export default function Delete() {
   const [fields, handleFieldChange] = useFormFields({
     title: "",
   });
-  
+
 
 
   async function handleSubmit(event) {
       event.preventDefault();
-      
+
       axios.delete('http://64.225.57.235:5000/deleteBudget', {
           data: { title: fields.title }
       });
       history.push("/dashboard");
       history.go(0)
-    
+
   }
     return (
       <div className="Login">
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="title" size="lg">
-          <Form.Label>Enter budget title to delete</Form.Label>
+          <Form.Label>Enter title of budget to delete</Form.Label>
           <Form.Control
             type="input"
             value={fields.title}
@@ -46,6 +46,6 @@ export default function Delete() {
       </Form>
       </div>
     );
-  
+
 
 }
