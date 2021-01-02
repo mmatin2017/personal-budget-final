@@ -19,7 +19,6 @@ class Dashboard extends Component {
       username: "",
       datasets: [
         {
-
           data: [],
           backgroundColor: [],
         },
@@ -28,124 +27,153 @@ class Dashboard extends Component {
     },
   };
 
-
-
   async componentDidMount() {
     try {
       let user = await Auth.currentAuthenticatedUser();
-    const newUser = {
-      username: user.username,
-    };
+      const newUser = {
+        username: user.username,
+      };
 
-    axios.post("http://64.225.57.235:5000/addBudget", newUser);
-    const res = await axios.get("http://64.225.57.235:5000/budget");
-    let tempData = this.state.data;
-    let index;
-    for (let i = 0; i < res.data.length; i++) {
-      if (res.data[i].username === newUser.username) {
-
-        index = i;
-        break;
+      axios.post("http://64.225.57.235:5000/create", newUser);
+      const res = await axios.get("http://64.225.57.235:5000/budget");
+      let tempData = this.state.data;
+      let index;
+      
+      for (let i = 0; i < res.data.length; i++) {
+        if (res.data[i].username === newUser.username) {
+          index = i;
+          break;
+        }
       }
-    }
 
-    for (let j = 0; j < res.data[index].data.length; j++) {
-      tempData.datasets[0].data[j] = res.data[index].data[j].budget;
-      tempData.labels[0] = res.data[index].data[j].title;
-      tempData.datasets[0].backgroundColor[j] = res.data[index].data[j].color;
-    }
-
-    this.setState({
-      data: Object.assign({}, this.state.data, {
-        data: tempData,
-      }),
-    });
-    } catch(event){
-      console.log(event)
+      for (let j = 0; j < res.data[index].data.length; j++) {
+        tempData.datasets[0].data[j] = res.data[index].data[j].budget;
+        tempData.labels[j] = res.data[index].data[j].title;
+        tempData.datasets[0].backgroundColor[j] = res.data[index].data[j].color;
+      }
+      console.log(user);
+      this.setState({
+        data: Object.assign({}, this.state.data, {
+          data: tempData,
+        }),
+      });
+    } catch (event) {
+      console.log(event);
     }
   }
 
   handleSelectBudget = (e) => {
-
     this.setState({ selectBudget: e });
     console.log(this.state.selectBudget);
   };
 
-  handleSelectChartView= (e) => {
-
+  handleSelectChartView = (e) => {
     this.setState({ select: e });
     console.log(this.state.select);
   };
 
+  renderAdd(){
+   return(
+      <Add/>
+   )
+  }
+
+  renderUpdate(){
+    return(
+      <Update/>
+    )
+    
+  }
+
+  renderDelete(){
+    return(
+      <Delete/>
+    )
+    
+  }
 
   render() {
     return (
-
-        <main className="center" id="main">
-          <div className="page-area">
-            <div className="text-box">
-              <h1>Your Budget Data</h1>
-              <CardGroup role = "layout">
-              <Card style={{ width: "10rem" }}
-              align = "left"
-              size = "small">
-          <Card.Img variant="top"/>
-          <Card.Body>
-            <DropdownButton
+      <main className="center" id="main">
+        <div className="page-area">
+          <div className="text-box">
+            <h1>Your Budget Data</h1>
+            <CardGroup role="layout">
+              <Card>
+                <Card.Img variant="top" />
+                <Card.Body>
+                <DropdownButton
               id="dropdown-basic-button"
-              title="Budget Build Select"
+              title="Change expense view"
               onSelect={this.handleSelectBudget}
+              align="left"
+              size="small"
               menuAlign="left"
-              size = "small"
               role="selectionMenu"
             >
-              <Dropdown.Item eventKey="Add" role="selection" >Add an expense</Dropdown.Item>
-              <Dropdown.Item eventKey="Update" role="selection">Edit an expense</Dropdown.Item>
-              <Dropdown.Item eventKey="Delete" role="selection">Delete an expense</Dropdown.Item>
+              <Dropdown.Item eventKey="Add" role="selection">
+                Add
+              </Dropdown.Item>
+              <Dropdown.Item eventKey="Update" role="selection">
+                Update
+              </Dropdown.Item>
+              <Dropdown.Item eventKey="Delete" role="selection">
+                Remove
+              </Dropdown.Item>
             </DropdownButton>
-            {this.state.select !== "Add" ? (this.handleSelect) : (<Add/>)}
-            {this.state.select !== "Update" ? (this.handleSelect) : (<Update/>)}
-            {this.state.select !== "Delete" ? (this.handleSelect) : (<Delete/>)}
-            <Add/>
-            </Card.Body>
-          </Card>
-          <Card style={{ width: "14rem" }}
-              align = "left">
-          <Card.Img variant="middle"/>
-          <Card.Body>
+              {this.state.selectBudget !== "Add" ? (this.handleSelect ) : (this.renderAdd())}
+              {this.state.selectBudget !== "Update" ? (this.handleSelect ) : (this.renderUpdate() )}
+              {this.state.selectBudget !== "Delete" ? (this.handleSelect ) : (this.renderDelete())}
+                  
+          
+                </Card.Body>
+              </Card>
+              <Card>
+                <Card.Img variant="top" />
+                <Card.Body>
+                <DropdownButton
+              id="dropdown-basic-button"
+              title="Change expense view"
+              onSelect={this.handleSelectChartView}
+              align="right"
+              size="small"
+              menuAlign="right"
+              role="selectionMenu"
+            >
+              <Dropdown.Item eventKey="Pie" role="selection">
+                Pie
+              </Dropdown.Item>
+              <Dropdown.Item eventKey="Bar" role="selection">
+                Bar
+              </Dropdown.Item>
+              <Dropdown.Item eventKey="Doughnut" role="selection">
+                Doughnut
+              </Dropdown.Item>
+            </DropdownButton>
 
-              <DropdownButton
-                id="dropdown-basic-button"
-                title="Change expense view"
-                onSelect={this.handleSelectChartView}
-                align="right"
-                size = "small"
-                menuAlign="right"
-                role="selectionMenu"
+            {this.state.select !== "Pie" ? (
+              this.handleSelect
+            ) : (
+              <Pie data={this.state.data} role="pieData"/>
+            )}
+            {this.state.select !== "Bar" ? (
+              this.handleSelect
+            ) : (
+              <Bar data={this.state.data} role="pieData" />
+            )}
+            {this.state.select !== "Doughnut" ? (
+              this.handleSelect
+            ) : (
+              <Doughnut data={this.state.data} role="doughnutData" />
+            )}
+                </Card.Body>
+              </Card>
+            </CardGroup>
 
-              >
-                <Dropdown.Item eventKey="Pie" role="selection">Pie</Dropdown.Item>
-                <Dropdown.Item eventKey="Bar" role="selection">Bar</Dropdown.Item>
-                <Dropdown.Item eventKey="Doughnut" role="selection">Doughnut</Dropdown.Item>
-              </DropdownButton>
-
-              {this.state.select !== "Pie" ? (this.handleSelect) :
-              (<Pie data={this.state.data}
-                role="pieData" />)}
-              {this.state.select !== "Bar" ? (this.handleSelect) :
-              (<Bar data={this.state.data}
-                role="pieData" />)}
-              {this.state.select !== "Doughnut" ? (this.handleSelect) :
-              (<Doughnut data = {this.state.data}
-                role="doughnutData"/>
-              )}
-              </Card.Body>
-          </Card>
-          </CardGroup>
-            </div>
+            
           </div>
-        </main>
-
+        </div>
+      </main>
     );
   }
 }

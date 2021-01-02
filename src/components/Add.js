@@ -27,11 +27,11 @@ export default function Add() {
           color: color,
           budget: fields.budget,
         },
-
+        
       ]
     };
     console.log(newData)
-    axios.put("http://64.225.57.235:5000/updateBudget", newData);
+    await axios.put("http://64.225.57.235:5000/add", newData);
     history.go(0);
   }
   return (

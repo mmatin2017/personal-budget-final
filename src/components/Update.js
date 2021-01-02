@@ -12,23 +12,20 @@ export default function Update() {
         title: "",
         budget: ""
   });
+  var newData;
 
   async function handleSubmit(event) {
     let user = await Auth.currentAuthenticatedUser();
     event.preventDefault();
-    const newData = {
-      username: user.username,
-
+    newData = {
+          username: user.username,
           title: fields.title,
           budget: fields.budget,
-          
-       
         
-
     };
     console.log(newData)
-    axios.put("http://64.225.57.235:5000/updateBudget", newData);
-    history.push("/dashboard");
+    await axios.put("http://64.225.57.235:5000/update", newData);
+    history.go(0);
   }
   return (
     <div className="Login">
